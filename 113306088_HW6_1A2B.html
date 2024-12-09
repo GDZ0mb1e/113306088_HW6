@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<style type="text/css">
+		body {
+			text-align: center;
+
+		}
+		.record {
+			border: 1px solid black;
+			margin: 20px;
+			
+		}
+	</style>
+</head>
+<body>
+	<h1>113306088_HW6_1A2B</h1>
+	<div>
+		<input type="text" id="Input" placeholder="輸入四個不重複的數字">
+		<button onclick="myFunction()">猜!</button>
+	</div>
+	<div class="record" id="record">
+		<h2>遊戲紀錄</h2>
+	</div>
+	<script type="text/javascript">
+		const answer = [];
+		
+		while (answer.length < 4) {
+    	const randomNumber = Math.floor(Math.random() * 10);
+    	if (!answer.includes(randomNumber)) {
+        	answer.push(randomNumber);
+    }
+}
+		let times = 0;
+
+		function myFunction() {
+			
+			const input = document.getElementById("Input").value;
+			const inputArray = input.split('').map(Number);
+			if (!/^\d{4}$/.test(input)) {
+        		alert("請輸入四個數字！");
+        		return;
+    		}
+
+			if (new Set(inputArray).size !== 4) {
+    			alert("輸入的數字不能重複！");
+    			return;
+			}
+	
+			times++;
+			let aCount = 0, bCount = 0;
+			inputArray.forEach((digit, index) => {
+    		if (answer[index] === digit) {
+        		aCount++;
+    		} else if (answer.includes(digit)) {
+        		bCount++;
+    		}
+			});
+
+			let record = document.getElementById('record');
+			let result = `第${times}次: ${aCount}A${bCount}B`;
+			record.innerHTML += `<p>${result}</p>`;
+			document.getElementById("Input").value = "";
+			if (aCount === 4) {
+		        alert("恭喜答對了！");
+		    }
+
+		}
+
+
+	</script>
+</body>
+</html>
